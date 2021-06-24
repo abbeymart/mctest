@@ -10,10 +10,10 @@ import (
 	"testing"
 )
 
-// ***** types *****
+// TestFunction ***** types *****
 type TestFunction func()
 
-// make params public
+// OptionValue make params public
 type OptionValue struct {
 	Name     string
 	TestFunc TestFunction
@@ -30,7 +30,7 @@ var (
 	failedTest     = 0
 )
 
-// ***** functions *****
+// AssertEquals ***** functions *****
 // assert equals
 func AssertEquals(t *testing.T, expr interface{}, result interface{}, message string) string {
 	if expr == result {
@@ -47,7 +47,7 @@ func AssertEquals(t *testing.T, expr interface{}, result interface{}, message st
 	return fmt.Sprintf("Failed [Test-Case: %v]: %v => Expected %v, Got %v", caseName, message, result, expr)
 }
 
-// assert not equals
+// AssertNotEquals assert not equals
 func AssertNotEquals(t *testing.T, expr interface{}, result interface{}, message string) string {
 	if expr != result {
 		fmt.Println("Passed")
@@ -63,7 +63,7 @@ func AssertNotEquals(t *testing.T, expr interface{}, result interface{}, message
 	return fmt.Sprintf("\nFailed [Test-Case: %v]: %v => Expected %v and %v not to be equals", caseName, message, result, expr)
 }
 
-// assert not strict equals => deep equality check through stringified values
+// AssertStrictEquals assert not strict equals => deep equality check through stringified values
 func AssertStrictEquals(t *testing.T, expr interface{}, result interface{}, message string) string {
 	// stringify expr and result for strict equals comparison
 	jsonExpr, _ := json.Marshal(expr)
@@ -83,7 +83,7 @@ func AssertStrictEquals(t *testing.T, expr interface{}, result interface{}, mess
 	return fmt.Sprintf("Failed [Test-Case: %v]: %v => Expected %v, Got %v", caseName, message, string(jsonResult), string(jsonExpr))
 }
 
-// assert strict equals => deep equality check through stringified values
+// AssertNotStrictEquals assert strict equals => deep equality check through stringified values
 func AssertNotStrictEquals(t *testing.T, expr interface{}, result interface{}, message string) string {
 	// stringify expr and result for strict equals comparison
 	jsonExpr, _ := json.Marshal(expr)

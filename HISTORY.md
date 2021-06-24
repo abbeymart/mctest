@@ -1,14 +1,20 @@
 # Historical logs
 
+## Version 0.5.4
+
+- Release date: June 23, 2021
+- Refactored functions comments
+
+
 ## Version 0.5.3
 
 - Release date: Dec 13, 2020
-- Updated github package link
+- Updated GitHub package link
 
 ## Version 0.5.2
 
 - Release date: Dec 13, 2020
-- Updated github package link / reference
+- Updated GitHub package link / reference
 
 ## Version 0.5.1
 
