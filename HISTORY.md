@@ -1,5 +1,10 @@
 # Historical logs
 
+## Version 0.6.0
+
+- Release date: April 26, 2022
+- Updated to go-v1.18 and refactored functions
+
 ## Version 0.5.4
 
 - Release date: June 23, 2021

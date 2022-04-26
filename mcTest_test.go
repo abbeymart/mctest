@@ -10,7 +10,7 @@ import "testing"
 var (
 	result1 = 100
 	result2 = 200
-	result3 = map[string]string{"Name": "Abi"}
+	result3 = map[string]string{"ItemName": "Abi"}
 	result4 = map[string]string{"location": "Abi"}
 )
 
@@ -18,19 +18,21 @@ func Expr1() int               { return 100 }
 func Expr2() int               { return 200 }
 func Expr3() map[string]string { return result3 }
 func Expr4() map[string]string { return result4 }
-func TestSetCache(t *testing.T) {
-	McTest(OptionValue{
-		Name: "Test Series 100",
+func TestMcCases(t *testing.T) {
+	// empty testcase name: testing will return with printed testcase name and testFunc required
+	McTest(ParamsType{
+		Name: "",
 		TestFunc: func() {
 			AssertEquals(t, Expr1(), result1, "Expected outcome: 100")
 			AssertEquals(t, Expr2(), result2, "Expected outcome: 200")
-			AssertNotEquals(t, Expr1(), result2, "Expected expr and result not equals")
-			AssertNotEquals(t, Expr2(), result1, "Expected expr and result not equals")
-			AssertStrictEquals(t, Expr3(), result3, "Expected outcome: strictly equals")
-			AssertStrictEquals(t, Expr4(), result4, "Expected outcome: strictly equals")
 		},
 	})
-	McTest(OptionValue{
+	// Nil testFunc: testing will return with printed testcase name and testFunc required
+	McTest(ParamsType{
+		Name:     "Nil test-func",
+		TestFunc: nil,
+	})
+	McTest(ParamsType{
 		Name: "Test Series 200",
 		TestFunc: func() {
 			AssertEquals(t, Expr1(), result1, "Expected outcome: 100")
