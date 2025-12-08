@@ -1,5 +1,11 @@
 # Historical logs
 
+## Version 0.7.0
+
+- Release date: Dec 08, 2025
+- Updated to go-v1.24.5 and added instance methods
+
+
 ## Version 0.6.0
 
 - Release date: April 26, 2022
