@@ -35,7 +35,7 @@ func TestMcTest(t *testing.T) {
 		},
 	})
 	tInstance.McTest(ParamsType{
-		Name: "Test Series 200-a",
+		Name: "Test Series 200a",
 		TestFunc: func() {
 			tInstance.AssertEquals(Expr1a(), result1a, "Expected outcome: 100")
 			tInstance.AssertEquals(Expr2a(), result2a, "Expected outcome: 200")

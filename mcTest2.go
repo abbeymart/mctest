@@ -115,7 +115,7 @@ func (testInstance *TestInstance) McTest(params ParamsType) {
 	fmt.Println("Summary for Test ", testName, ":")
 	fmt.Printf("\nTest Passed: %v", testInstance.UnitTestPassed)
 	fmt.Printf("\nTest Failed: %v", testInstance.UnitTestFailed)
-	fmt.Printf("\nTotal Test: %v", testInstance.UnitTestPassed+testInstance.UnitTestFailed)
+	fmt.Printf("\nTotal Test: %v\n", testInstance.UnitTestPassed+testInstance.UnitTestFailed)
 	// Reset unit test counts
 	testInstance.UnitTestPassed = 0
 	testInstance.UnitTestFailed = 0
@@ -127,9 +127,9 @@ func (testInstance *TestInstance) PostTestResult() {
 	fmt.Println("============================")
 	fmt.Printf("\nTest Passed: %v", testInstance.TestPassed)
 	fmt.Printf("\nTest Failed: %v", testInstance.TestFailed)
-	fmt.Printf("\nTotal Test: %v", testInstance.TestPassed+testInstance.TestFailed)
+	fmt.Printf("\nTotal Test: %v\n", testInstance.TestPassed+testInstance.TestFailed)
 	// reset test counts
 	testInstance.TestPassed = 0
 	testInstance.TestFailed = 0
-	fmt.Printf("\n***** Test Completed *****")
+	fmt.Printf("\n***** Test Completed *****\n")
 }

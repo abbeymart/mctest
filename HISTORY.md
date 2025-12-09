@@ -1,5 +1,10 @@
 # Historical logs
 
+## Version 0.7.1
+
+- Release date: Dec 08, 2025
+- Reformated-test-result-view for instance methods
+
 ## Version 0.7.0
 
 - Release date: Dec 08, 2025
