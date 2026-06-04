@@ -20,42 +20,58 @@ type TestInstance struct {
 	TestObject     *testing.T
 }
 
+// Test Instance
+
+// NewTest function is a factory function to create a new test object/instance
+func NewTest(params ParamsType) *ParamsType {
+	return &ParamsType{
+		UnitTestPassed: 0,
+		UnitTestFailed: 0,
+		UnitTestTotal:  0,
+		Name:           params.Name,
+		TestFunc:       params.TestFunc,
+		Before:         params.Before,
+		After:          params.After,
+	}
+}
+
+// SetTestFunction sets the test-instance function
+func (testInstance *ParamsType) SetTestFunction(params TestFunction) {
+	testInstance.TestFunc = params
+}
+
 // AssertEquals function asserts equality of a computation and expected result
-func (testInstance *TestInstance) AssertEquals(expr interface{}, result interface{}, message string) string {
+func (testInstance *ParamsType) AssertEquals(expr interface{}, result interface{}, message string) string {
 	t := testInstance.TestObject
 	if expr == result {
 		fmt.Println("Passed")
 		testInstance.UnitTestPassed += 1
-		testInstance.TestPassed += 1
 		return "Passed"
 	}
-	fmt.Printf("\nFailed [Test-Case: %v]: %v => Expected %v, Got %v", testInstance.CaseName, message, result, expr)
-	t.Errorf("\nFailed [Test-Case: %v]: %v => Expected %v, Got %v", testInstance.CaseName, message, result, expr)
+	fmt.Printf("\nFailed [Test-Case: %v]: %v => Expected %v, Got %v", testInstance.Name, message, result, expr)
+	t.Errorf("\nFailed [Test-Case: %v]: %v => Expected %v, Got %v", testInstance.Name, message, result, expr)
 	fmt.Printf("\n")
 	testInstance.UnitTestFailed += 1
-	testInstance.TestFailed += 1
-	return fmt.Sprintf("Failed [Test-Case: %v]: %v => Expected %v, Got %v", testInstance.CaseName, message, result, expr)
+	return fmt.Sprintf("Failed [Test-Case: %v]: %v => Expected %v, Got %v", testInstance.Name, message, result, expr)
 }
 
 // AssertNotEquals function asserts inequality of a computation and expected result
-func (testInstance *TestInstance) AssertNotEquals(expr interface{}, result interface{}, message string) string {
+func (testInstance *ParamsType) AssertNotEquals(expr interface{}, result interface{}, message string) string {
 	t := testInstance.TestObject
 	if expr != result {
 		fmt.Println("Passed")
 		testInstance.UnitTestPassed += 1
-		testInstance.TestPassed += 1
 		return "Passed"
 	}
-	fmt.Printf("\nFailed [Test-Case: %v]: %v => Expected %v and %v not to be equals", testInstance.CaseName, message, result, expr)
-	t.Errorf("\nFailed [Test-Case: %v]: %v => Expected %v and %v not to be equals", testInstance.CaseName, message, result, expr)
+	fmt.Printf("\nFailed [Test-Case: %v]: %v => Expected %v and %v not to be equals", testInstance.Name, message, result, expr)
+	t.Errorf("\nFailed [Test-Case: %v]: %v => Expected %v and %v not to be equals", testInstance.Name, message, result, expr)
 	fmt.Printf("\n")
 	testInstance.UnitTestFailed += 1
-	testInstance.TestFailed += 1
-	return fmt.Sprintf("\nFailed [Test-Case: %v]: %v => Expected %v and %v not to be equals", testInstance.CaseName, message, result, expr)
+	return fmt.Sprintf("\nFailed [Test-Case: %v]: %v => Expected %v and %v not to be equals", testInstance.Name, message, result, expr)
 }
 
 // AssertStrictEquals function asserts strict equality => deep equality check through stringified values
-func (testInstance *TestInstance) AssertStrictEquals(expr interface{}, result interface{}, message string) string {
+func (testInstance *ParamsType) AssertStrictEquals(expr interface{}, result interface{}, message string) string {
 	// stringify expr and result for strict equals comparison
 	jsonExpr, _ := json.Marshal(expr)
 	jsonResult, _ := json.Marshal(result)
@@ -63,19 +79,17 @@ func (testInstance *TestInstance) AssertStrictEquals(expr interface{}, result in
 	if string(jsonExpr) == string(jsonResult) {
 		fmt.Println("Passed")
 		testInstance.UnitTestPassed += 1
-		testInstance.TestPassed += 1
 		return "Passed"
 	}
-	fmt.Printf("\nFailed [Test-Case: %v]: %v => Expected %v, Got %v", testInstance.CaseName, message, string(jsonResult), string(jsonExpr))
-	t.Errorf("\nFailed [Test-Case: %v]: %v => Expected %v, Got %v", testInstance.CaseName, message, string(jsonResult), string(jsonExpr))
+	fmt.Printf("\nFailed [Test-Case: %v]: %v => Expected %v, Got %v", testInstance.Name, message, string(jsonResult), string(jsonExpr))
+	t.Errorf("\nFailed [Test-Case: %v]: %v => Expected %v, Got %v", testInstance.Name, message, string(jsonResult), string(jsonExpr))
 	fmt.Printf("\n")
 	testInstance.UnitTestFailed += 1
-	testInstance.TestFailed += 1
-	return fmt.Sprintf("Failed [Test-Case: %v]: %v => Expected %v, Got %v", testInstance.CaseName, message, string(jsonResult), string(jsonExpr))
+	return fmt.Sprintf("Failed [Test-Case: %v]: %v => Expected %v, Got %v", testInstance.Name, message, string(jsonResult), string(jsonExpr))
 }
 
 // AssertNotStrictEquals function asserts strict inequality => deep equality check through stringified values
-func (testInstance *TestInstance) AssertNotStrictEquals(expr interface{}, result interface{}, message string) string {
+func (testInstance *ParamsType) AssertNotStrictEquals(expr interface{}, result interface{}, message string) string {
 	// stringify expr and result for strict equals comparison
 	jsonExpr, _ := json.Marshal(expr)
 	jsonResult, _ := json.Marshal(result)
@@ -83,53 +97,58 @@ func (testInstance *TestInstance) AssertNotStrictEquals(expr interface{}, result
 	if string(jsonExpr) != string(jsonResult) {
 		fmt.Println("Passed")
 		testInstance.UnitTestPassed += 1
-		testInstance.TestPassed += 1
 		return "Passed"
 	}
-	fmt.Printf("\nFailed [Test-Case: %v]: %v => Expected %v and %v not to be equals", testInstance.CaseName, message, string(jsonResult), string(jsonExpr))
-	t.Errorf("\nFailed [Test-Case: %v]: %v => Expected %v and %v not to be equals", testInstance.CaseName, message, string(jsonResult), string(jsonExpr))
+	fmt.Printf("\nFailed [Test-Case: %v]: %v => Expected %v and %v not to be equals", testInstance.Name, message, string(jsonResult), string(jsonExpr))
+	t.Errorf("\nFailed [Test-Case: %v]: %v => Expected %v and %v not to be equals", testInstance.Name, message, string(jsonResult), string(jsonExpr))
 	fmt.Printf("\n")
 	testInstance.UnitTestFailed += 1
-	testInstance.TestFailed += 1
-	return fmt.Sprintf("Failed [Test-Case: %v]: %v => Expected %v and %v not to be equals", testInstance.CaseName, message, string(jsonResult), string(jsonExpr))
+	return fmt.Sprintf("Failed [Test-Case: %v]: %v => Expected %v and %v not to be equals", testInstance.Name, message, string(jsonResult), string(jsonExpr))
 }
 
-func (testInstance *TestInstance) McTest(params ParamsType) {
-	testName := params.Name
-	testFunc := params.TestFunc
+func (testInstance *ParamsType) UnitTestResult() UnitTestResult {
+	return UnitTestResult{
+		UnitTestPassed: testInstance.UnitTestPassed,
+		UnitTestFailed: testInstance.UnitTestFailed,
+		UnitTestTotal:  testInstance.UnitTestPassed + testInstance.UnitTestFailed,
+	}
+}
 
-	// make current testName accessible from textFunc
-	testInstance.CaseName = testName
-
-	// validate case/testName and testFunc
-	if testName == "" || testFunc == nil {
+func (testInstance *ParamsType) RunTest() UnitTestResult {
+	// validate test-case name and testFunc
+	if testInstance.Name == "" || testInstance.TestFunc == nil {
 		fmt.Printf("\n Test case name and test task/function are required - Testing stopped!!!")
 		fmt.Printf("\n")
-		return
+		return UnitTestResult{}
 	}
 	// run test case
-	fmt.Println("Running Test: ", testName)
+	fmt.Println("Running Test: ", testInstance.Name)
 	fmt.Println("================================================")
-	testFunc()
+	testInstance.TestFunc()
+	testInstance.UnitTestTotal = testInstance.UnitTestPassed + testInstance.UnitTestFailed
 	// Test report
-	fmt.Println("Summary for Test ", testName, ":")
+	fmt.Println("Summary for Test ", testInstance.Name, ":")
 	fmt.Printf("\nTest Passed: %v", testInstance.UnitTestPassed)
 	fmt.Printf("\nTest Failed: %v", testInstance.UnitTestFailed)
 	fmt.Printf("\nTotal Test: %v\n", testInstance.UnitTestPassed+testInstance.UnitTestFailed)
-	// Reset unit test counts
-	testInstance.UnitTestPassed = 0
-	testInstance.UnitTestFailed = 0
+	return testInstance.UnitTestResult()
 }
 
-func (testInstance *TestInstance) PostTestResult() {
+// TestResult function captures overall testing results for all the unit tests
+func TestResult(params []UnitTestResult) {
+	testPassed := uint(0)
+	testFailed := uint(0)
+	testTotal := uint(0)
+	for _, val := range params {
+		testPassed += val.UnitTestPassed
+		testFailed += val.UnitTestFailed
+		testTotal += val.UnitTestTotal
+	}
 	fmt.Println("============================")
 	fmt.Println("All Tests Summary Stats:")
 	fmt.Println("============================")
-	fmt.Printf("\nTest Passed: %v", testInstance.TestPassed)
-	fmt.Printf("\nTest Failed: %v", testInstance.TestFailed)
-	fmt.Printf("\nTotal Test: %v\n", testInstance.TestPassed+testInstance.TestFailed)
-	// reset test counts
-	testInstance.TestPassed = 0
-	testInstance.TestFailed = 0
+	fmt.Printf("\nTest Passed: %v", testPassed)
+	fmt.Printf("\nTest Failed: %v", testFailed)
+	fmt.Printf("\nTotal Test: %v\n", testTotal)
 	fmt.Printf("\n***** Test Completed *****\n")
 }

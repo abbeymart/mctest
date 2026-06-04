@@ -1,5 +1,10 @@
 # Historical logs
 
+## Version 0.8.0
+
+- Release date: June 03, 2026
+- Refactored-instance methods-v0.8.0
+
 ## Version 0.7.1
 
 - Release date: Dec 08, 2025

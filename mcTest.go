@@ -1,6 +1,7 @@
-// @Author: abbeymart | Abi Akindele | @Created: 2020-11-30 | @Updated: 2020-11-30
+// @Author: abbeymart | Abi Akindele | @Created: 2020-11-30 | @Updated: 2020-11-30, 2026-06-03
 // @Company: mConnect.biz | @License: MIT
 // @Description: go: mConnect Test Package
+// @Deprecated: use mcTest2.go instance methods instead
 
 package mctest
 
@@ -9,17 +10,6 @@ import (
 	"fmt"
 	"testing"
 )
-
-// TestFunction ***** types *****
-type TestFunction func()
-
-// ParamsType make params public
-type ParamsType struct {
-	Name     string
-	TestFunc TestFunction
-	Before   string
-	After    string
-}
 
 // ***** variables *****
 var (
